@@ -1,18 +1,26 @@
-# MERN-Stack Infrastructure
+# Advent Translation - Version 0
 
-Clone this repo to provide the starter code for a comprehensive MERN-Stack project including token-based authentication.
+## About
 
-## To Clone
+This is a project, modeled after [Advent of Code](https://adventofcode.com/), providing 25 days of translation practice from Hebrew and Greek verses in the Bible. It is currently in the planning and prototyping stages.
 
-Here's the process to create a new MERN-Stack project that starts with the infrastructure code:
+As version 0, this is for prototyping and proof-of-concept.
 
-- Clone the mern-infrastructure repo: git clone <url of mern-infrastructure> <name-of-project>. Note that the folder created will be same as <name-of-project> instead of mern-infrastructure
-- cd <name-of-project>
-- Install the Node modules: npm i
-- Create a .env (touch .env) and add entries for DATABASE_URL and SECRET
-- Update the "name": "mern-infrastructure" in package.json to the name of your project.
-- Create a new repo on your personal GH account.
-- Copy the new GH repo's URL.
-- Update the remote's URL: git remote set-url origin <paste the copied GH url>
-- Make the initial commit: git add -A && git commit -m "Initial commit"
-- Push for the first time: git push -u origin main
+It last iteration of this project was too ambitious. I tried to learn and use too many new technologies all at once. So I'm prototyping here with tried and true tools and can develop with newer tech in later versions.
+
+## Technologies
+
+Familiar to me includes:
+
+- React
+- MongoDB (or maybe not, if I go with PocketBase)
+- Node.js
+- Express
+
+## Getting Started
+
+First, run the development server:
+
+`npm start`
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
