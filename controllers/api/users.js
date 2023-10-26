@@ -38,7 +38,8 @@ async function login(req, res) {
     if (!user) throw new Error();
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) throw new Error();
-    const token = createJWT(user);
+    const profile = await Profile.findOne({ userId: user._id });
+    const token = createJWT(profile);
     res.json(token);
   } catch {
     res.status(400).json("Bad Credentials");
@@ -52,10 +53,10 @@ function checkToken(req, res) {
 
 /*-- Helper Functions --*/
 
-function createJWT(user) {
+function createJWT(profile) {
   return jwt.sign(
     // data payload
-    { user },
+    { profile },
     process.env.SECRET,
     { expiresIn: "24h" }
   );
