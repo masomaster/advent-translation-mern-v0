@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { getUserProfile } from "../../utilities/users-service";
+import { getUser } from "../../utilities/users-service";
 
 import NavBar from "../../components/NavBar/NavBar";
 import AuthPage from "../AuthPage/AuthPage";
@@ -10,22 +10,24 @@ import "./App.css";
 import Home from "../Home/Home";
 
 export default function App() {
-  const [profile, setProfile] = useState(getUserProfile());
-  console.log("profile in App.jsx: ", profile);
+  const [user, setUser] = useState(getUser());
 
   return (
     <main className="App">
-      {profile ? (
+      {user ? (
         <>
-          <NavBar profile={profile} setProfile={setProfile} />
+          <NavBar user={user} setUser={setUser} />
           <Routes>
             <Route path="/orders/new" element={<NewOrderPage />} />
             <Route path="/orders" element={<OrderHistoryPage />} />
           </Routes>
-          <Home profile={profile} setProfile={setProfile} />
+          <div>
+            <h1>Welcome to Advent Translation, {user.firstName}!</h1>
+            <h3>You are on Day {user.latestDay}.</h3>
+          </div>
         </>
       ) : (
-        <AuthPage setProfile={setProfile} />
+        <AuthPage setUser={setUser} />
       )}
     </main>
   );

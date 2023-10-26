@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const translationSchema = new Schema(
+const profileSchema = new Schema(
   {
     profileId: {
       type: Schema.Types.ObjectId,
@@ -24,4 +24,4 @@ const translationSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Translation", translationSchema);
+module.exports = mongoose.model("Profile", profileSchema);

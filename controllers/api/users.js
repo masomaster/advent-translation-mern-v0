@@ -38,9 +38,8 @@ async function login(req, res) {
     if (!user) throw new Error();
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) throw new Error();
-    const profile = await Profile.findOne({ userId: user._id });
     const token = createJWT(user);
-    res.json(token); // TODO: I think this is where I want to ALSO return the profile in the response so I can set it as state.
+    res.json(token);
   } catch {
     res.status(400).json("Bad Credentials");
   }
