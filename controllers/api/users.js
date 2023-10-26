@@ -1,5 +1,4 @@
 const User = require("../../models/user");
-const Profile = require("../../models/profile");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -12,17 +11,6 @@ module.exports = {
 async function create(req, res) {
   try {
     const user = await User.create(req.body);
-    // Create new profile for user using userID
-    const { firstName, lastName, email, id } = user;
-    const profileData = {
-      userId: id,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      latestDay: 1,
-      preferredTranslation: "NIV",
-    };
-    const profile = await Profile.create(profileData);
     const token = createJWT(user);
     res.json(token);
   } catch (err) {

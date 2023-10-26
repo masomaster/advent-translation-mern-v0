@@ -3,8 +3,8 @@ import { useState } from "react";
 import * as days from "../../days.json";
 import { createTranslations } from "../../utilities/translations-api";
 
-const Home = ({ profile, setProfile }) => {
-  const dayVerses = days[profile?.latestDay];
+const Home = ({ user }) => {
+  const dayVerses = days[user?.latestDay];
 
   const [hebrewForm, setHebrewForm] = useState({
     hebrewTranslation: "",
@@ -35,10 +35,9 @@ const Home = ({ profile, setProfile }) => {
       const dayTranslations = {
         ...hebrewForm,
         ...greekForm,
-        day: profile.latestDay,
-        profileId: profile._id,
+        day: user.latestDay,
+        user: user._id,
       };
-      console.log("posting dayTranslations now... ", { dayTranslations });
       const results = await createTranslations(dayTranslations);
       console.log({ results });
       // const newHebrewTranslation = results.hebrewTranslation;
@@ -55,11 +54,11 @@ const Home = ({ profile, setProfile }) => {
   return (
     <div>
       <div>
-        <h1>Welcome to Advent Translation, {profile.firstName}!</h1>
-        <h3>You are on Day {profile.latestDay}.</h3>
+        <h1>Welcome to Advent Translation, {user.firstName}!</h1>
+        <h3>You are on Day {user.latestDay}.</h3>
       </div>
       <div>
-        <p>Day {profile.latestDay} Verses:</p>
+        <p>Day {user.latestDay} Verses:</p>
         <p>{dayVerses.hebrewVerse}</p>
         <p>{dayVerses.hebrewText}</p>
         <div className="form-container">

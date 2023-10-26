@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const profileSchema = new Schema(
+const translationSchema = new Schema(
   {
-    profileId: {
+    user: {
       type: Schema.Types.ObjectId,
-      ref: "profile",
+      ref: "user",
     },
     greekTranslation: String,
     hebrewTranslation: String,
@@ -24,4 +24,4 @@ const profileSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Profile", profileSchema);
+module.exports = mongoose.model("Translation", translationSchema);

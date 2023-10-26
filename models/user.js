@@ -21,6 +21,15 @@ const userSchema = new Schema(
       minLength: 3,
       required: true,
     },
+    latestDay: {
+      type: Number,
+      required: true,
+    },
+    preferredTranslation: {
+      type: String,
+      uppercase: true,
+      required: true,
+    },
   },
   {
     timestamps: true,

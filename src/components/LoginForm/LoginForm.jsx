@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as usersService from "../../utilities/users-service";
 import { Link } from "react-router-dom";
 
-export default function LoginForm({ setProfile, handleToggle }) {
+export default function LoginForm({ setUser, handleToggle }) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -20,8 +20,8 @@ export default function LoginForm({ setProfile, handleToggle }) {
       // The promise returned by the signUp service method
       // will resolve to the user object included in the
       // payload of the JSON Web Token (JWT)
-      const profile = await usersService.login(credentials);
-      setProfile(profile);
+      const user = await usersService.login(credentials);
+      setUser(user);
     } catch {
       setError("Log In Failed - Try Again");
     }

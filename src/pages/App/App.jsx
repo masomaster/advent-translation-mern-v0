@@ -21,10 +21,7 @@ export default function App() {
             <Route path="/orders/new" element={<NewOrderPage />} />
             <Route path="/orders" element={<OrderHistoryPage />} />
           </Routes>
-          <div>
-            <h1>Welcome to Advent Translation, {user.firstName}!</h1>
-            <h3>You are on Day {user.latestDay}.</h3>
-          </div>
+          <Home user={user} />
         </>
       ) : (
         <AuthPage setUser={setUser} />

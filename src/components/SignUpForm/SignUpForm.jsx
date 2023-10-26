@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signUp } from "../../utilities/users-service";
 import { Link } from "react-router-dom";
 
-export default function SignUpForm({ setProfile, handleToggle }) {
+export default function SignUpForm({ setUser, handleToggle }) {
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     lastName: "",
@@ -24,14 +24,18 @@ export default function SignUpForm({ setProfile, handleToggle }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      const formDataCopy = { ...signUpForm };
+      const formDataCopy = {
+        ...signUpForm,
+        latestDay: 1,
+        preferredTranslation: "NIV",
+      };
       delete formDataCopy.confirm;
       delete formDataCopy.error;
       // Or could do:
       // const {name, email, password} = formData;
       // const formDataCopy = {name, email, password};
-      const profile = await signUp(formDataCopy);
-      setProfile(profile);
+      const user = await signUp(formDataCopy);
+      setUser(user);
     } catch {
       setSignUpForm({
         ...signUpForm,
