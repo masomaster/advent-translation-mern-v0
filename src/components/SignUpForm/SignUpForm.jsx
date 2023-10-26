@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signUp } from "../../utilities/users-service";
 import { Link } from "react-router-dom";
 
-export default function SignUpForm({ setUser, handleToggle }) {
+export default function SignUpForm({ setProfile, handleToggle }) {
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     lastName: "",
@@ -30,8 +30,8 @@ export default function SignUpForm({ setUser, handleToggle }) {
       // Or could do:
       // const {name, email, password} = formData;
       // const formDataCopy = {name, email, password};
-      const user = await signUp(formDataCopy);
-      setUser(user);
+      const profile = await signUp(formDataCopy);
+      setProfile(profile);
     } catch {
       setSignUpForm({
         ...signUpForm,

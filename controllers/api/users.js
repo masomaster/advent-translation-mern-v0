@@ -23,7 +23,7 @@ async function create(req, res) {
       preferredTranslation: "NIV",
     };
     const profile = await Profile.create(profileData);
-    const token = createJWT(profile);
+    const token = createJWT(user);
     res.json(token);
   } catch (err) {
     res.status(400).json(err);
@@ -39,8 +39,8 @@ async function login(req, res) {
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) throw new Error();
     const profile = await Profile.findOne({ userId: user._id });
-    const token = createJWT(profile);
-    res.json(token);
+    const token = createJWT(user);
+    res.json(token); // TODO: I think this is where I want to ALSO return the profile in the response so I can set it as state.
   } catch {
     res.status(400).json("Bad Credentials");
   }
@@ -53,10 +53,10 @@ function checkToken(req, res) {
 
 /*-- Helper Functions --*/
 
-function createJWT(profile) {
+function createJWT(user) {
   return jwt.sign(
     // data payload
-    { profile },
+    { user },
     process.env.SECRET,
     { expiresIn: "24h" }
   );
