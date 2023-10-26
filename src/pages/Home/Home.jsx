@@ -38,8 +38,19 @@ const Home = ({ user }) => {
         day: user.latestDay,
         user: user._id,
       };
-      const results = await createTranslations(dayTranslations);
-      console.log({ results });
+      if (dayTranslations.hebrewTranslation === "") {
+        delete dayTranslations.hebrewTranslation;
+      }
+      if (dayTranslations.greekTranslation === "") {
+        delete dayTranslations.greekTranslation;
+      }
+      if (
+        dayTranslations.hebrewTranslation ||
+        dayTranslations.greekTranslation
+      ) {
+        const results = await createTranslations(dayTranslations);
+        console.log({ results });
+      }
       // const newHebrewTranslation = results.hebrewTranslation;
       // console.log({ newHebrewTranslation });
       // const newGreekTranslation = results.greekTranslation;
