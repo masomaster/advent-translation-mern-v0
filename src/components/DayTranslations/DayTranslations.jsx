@@ -1,18 +1,30 @@
-import { useState } from "react";
-import { createTranslations } from "../../utilities/translations-api";
+import { useEffect, useState } from "react";
+import * as translationsAPI from "../../utilities/translations-api";
 import * as days from "../../days.json";
 
 export default function DayTranslations({ user, currentDay, setCurrentDay }) {
+  /* STATES AND VARIABLES */
+  const [hebrewTranslation, setHebrewTranslation] = useState("");
+  const [greekTranslation, setGreekTranslation] = useState("");
   const dayVerses = days[currentDay];
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
 
-  const [hebrewForm, setHebrewForm] = useState({
-    hebrewTranslation: "",
-  });
-  const [greekForm, setGreekForm] = useState({
-    greekTranslation: "",
-  });
+  // /* USE EFFECTS */
+  // When day changes, either load any existing translations or clear the form
+  useEffect(() => {
+    translationsAPI.getDayTranslations(currentDay).then((translations) => {
+      if (translations) {
+        setHebrewTranslation(translations.hebrewTranslation);
+        setGreekTranslation(translations.greekTranslation);
+      } else {
+        // Handle the case where translations are not available
+        setHebrewTranslation("");
+        setGreekTranslation("");
+      }
+    });
+  }, [currentDay]);
 
+  /* HANDLE FUNCTIONS */
   function handleIncrement() {
     if (currentDay < numOfDays) {
       setCurrentDay(currentDay + 1);
@@ -29,49 +41,24 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
     }
   }
 
-  function handleHebrewChange(evt) {
-    const newFormData = {
-      ...hebrewForm,
-      [evt.target.name]: evt.target.value,
-    };
-    setHebrewForm(newFormData);
-  }
-
-  function handleGreekChange(evt) {
-    const newFormData = {
-      ...greekForm,
-      [evt.target.name]: evt.target.value,
-    };
-    setGreekForm(newFormData);
-  }
-
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
       const dayTranslations = {
-        ...hebrewForm,
-        ...greekForm,
+        hebrewTranslation: hebrewTranslation,
+        greekTranslation: greekTranslation,
         day: currentDay,
         user: user._id,
       };
-      if (dayTranslations.hebrewTranslation === "") {
-        delete dayTranslations.hebrewTranslation;
-      }
-      if (dayTranslations.greekTranslation === "") {
-        delete dayTranslations.greekTranslation;
-      }
-      if (
-        dayTranslations.hebrewTranslation ||
-        dayTranslations.greekTranslation
-      ) {
-        const results = await createTranslations(dayTranslations);
-      }
+
+      const results = await translationsAPI.createTranslations(dayTranslations);
+
       // const newHebrewTranslation = results.hebrewTranslation;
       // console.log({ newHebrewTranslation });
       // const newGreekTranslation = results.greekTranslation;
       // console.log({ newGreekTranslation });
-      // setHebrewForm(newHebrewTranslation);
-      // setGreekForm(newGreekTranslation);
+      // setHebrewTranslation(newHebrewTranslation);
+      // setGreekTranslation(newGreekTranslation);
     } catch (err) {
       console.log("Error in handleSubmit: ", err);
     }
@@ -87,8 +74,8 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
             type="textarea"
             id="hebrewTranslation"
             name="hebrewTranslation"
-            value={hebrewForm.hebrewTranslation}
-            onChange={handleHebrewChange}
+            value={hebrewTranslation}
+            onChange={(e) => setHebrewTranslation(e.target.value)}
           />
         </form>
       </div>
@@ -101,8 +88,8 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
             type="textarea"
             id="greekTranslation"
             name="greekTranslation"
-            value={greekForm.greekTranslation}
-            onChange={handleGreekChange}
+            value={greekTranslation}
+            onChange={(e) => setGreekTranslation(e.target.value)}
           />
           <button type="submit">save</button>
         </form>
