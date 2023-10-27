@@ -4,8 +4,6 @@ import { getUser } from "../../utilities/users-service";
 
 import NavBar from "../../components/NavBar/NavBar";
 import AuthPage from "../AuthPage/AuthPage";
-import NewOrderPage from "../NewOrderPage/NewOrderPage";
-import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 import "./App.css";
 import Home from "../Home/Home";
 
@@ -17,10 +15,6 @@ export default function App() {
       {user ? (
         <>
           <NavBar user={user} setUser={setUser} />
-          <Routes>
-            <Route path="/orders/new" element={<NewOrderPage />} />
-            <Route path="/orders" element={<OrderHistoryPage />} />
-          </Routes>
           <Home user={user} />
         </>
       ) : (

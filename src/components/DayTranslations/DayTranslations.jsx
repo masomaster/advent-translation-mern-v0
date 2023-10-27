@@ -4,6 +4,7 @@ import * as days from "../../days.json";
 
 export default function DayTranslations({ user, currentDay, setCurrentDay }) {
   const dayVerses = days[currentDay];
+  const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
 
   const [hebrewForm, setHebrewForm] = useState({
     hebrewTranslation: "",
@@ -11,6 +12,22 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
   const [greekForm, setGreekForm] = useState({
     greekTranslation: "",
   });
+
+  function handleIncrement() {
+    if (currentDay < numOfDays) {
+      setCurrentDay(currentDay + 1);
+    } else {
+      // Do nothing or handle the case where the maximum value is reached
+    }
+  }
+
+  function handleDecrement() {
+    if (currentDay > 1) {
+      setCurrentDay(currentDay - 1);
+    } else {
+      // Do nothing or handle the case where the minimum value is reached
+    }
+  }
 
   function handleHebrewChange(evt) {
     const newFormData = {
@@ -48,7 +65,6 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
         dayTranslations.greekTranslation
       ) {
         const results = await createTranslations(dayTranslations);
-        console.log({ results });
       }
       // const newHebrewTranslation = results.hebrewTranslation;
       // console.log({ newHebrewTranslation });
@@ -62,7 +78,6 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
   }
   return (
     <div>
-      <p>Day {user.latestDay} Verses:</p>
       <p>{dayVerses.hebrewVerse}</p>
       <p>{dayVerses.hebrewText}</p>
       <div className="form-container">
@@ -91,6 +106,8 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
           />
           <button type="submit">save</button>
         </form>
+        <button onClick={() => handleDecrement()}>previous day</button>
+        <button onClick={() => handleIncrement()}>next day</button>
       </div>
     </div>
   );
