@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import * as translationsAPI from "../../utilities/translations-api";
+import { getOfficialTranslations } from "../../utilities/translations-api";
 import * as days from "../../days.json";
+import OfficialTranslations from "../OfficialTranslations/OfficialTranslations";
 
 export default function DayTranslations({ user, currentDay, setCurrentDay }) {
   /* STATES AND VARIABLES */
   const [hebrewTranslation, setHebrewTranslation] = useState("");
   const [greekTranslation, setGreekTranslation] = useState("");
+  const [officialOTTranslation, setOfficialOTTranslation] = useState("");
+  const [officialNTTranslation, setOfficialNTTranslation] = useState("");
+
   const dayVerses = days[currentDay];
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
+  const hebrewParaBibleLink = `https://parabible.com/${dayVerses.hebrewVerse}`;
+  const greekParaBibleLink = `https://parabible.com/${dayVerses.greekVerse}`;
 
   // /* USE EFFECTS */
   // When day changes, either load any existing translations or clear the form
@@ -17,12 +24,51 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
         setHebrewTranslation(translations.hebrewTranslation);
         setGreekTranslation(translations.greekTranslation);
       } else {
-        // Handle the case where translations are not available
         setHebrewTranslation("");
         setGreekTranslation("");
       }
     });
   }, [currentDay]);
+
+  // Get official translations of Hebrew (this is definitely something that could be made DRY-er)
+  async function handleShowOfficialOTTranslations() {
+    if (!dayVerses.hebrewVerse) return;
+    const officialTranslationResponse = await getOfficialTranslations(
+      dayVerses.hebrewVerse
+    );
+    console.log(
+      "officialTranslationResponse in useEffect: ",
+      officialTranslationResponse
+    );
+    if (officialTranslationResponse) {
+      console.log("got it!");
+      setOfficialOTTranslation(officialTranslationResponse);
+    } else {
+      console.log("missed it!");
+      setOfficialOTTranslation("");
+    }
+    console.log({ officialOTTranslation });
+  }
+
+  // Get official translations of Greek
+  async function handleShowOfficialNTTranslations() {
+    if (!dayVerses.greekVerse) return;
+    const officialTranslationResponse = await getOfficialTranslations(
+      dayVerses.greekVerse
+    );
+    console.log(
+      "officialTranslationResponse in useEffect: ",
+      officialTranslationResponse
+    );
+    if (officialTranslationResponse) {
+      console.log("got it!");
+      setOfficialNTTranslation(officialTranslationResponse);
+    } else {
+      console.log("missed it!");
+      setOfficialNTTranslation("");
+    }
+    console.log({ officialNTTranslation });
+  }
 
   /* HANDLE FUNCTIONS */
   function handleIncrement() {
@@ -77,6 +123,13 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
             value={hebrewTranslation}
             onChange={(e) => setHebrewTranslation(e.target.value)}
           />
+          <button onClick={() => handleShowOfficialOTTranslations()}>
+            Show official translations
+          </button>
+          <OfficialTranslations officialTranslation={officialOTTranslation} />
+          <a href={hebrewParaBibleLink} target="_blank" rel="noreferrer">
+            Click here for language help at parabible.
+          </a>
         </form>
       </div>
       <p>{dayVerses.greekVerse}</p>
@@ -91,11 +144,19 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
             value={greekTranslation}
             onChange={(e) => setGreekTranslation(e.target.value)}
           />
+          <button onClick={() => handleShowOfficialNTTranslations()}>
+            Show official translations
+          </button>
+          <OfficialTranslations officialTranslation={officialNTTranslation} />
+          <a href={greekParaBibleLink} target="_blank" rel="noreferrer">
+            {" "}
+            Click here for language help at parabible.
+          </a>
           <button type="submit">save</button>
         </form>
-        <button onClick={() => handleDecrement()}>previous day</button>
-        <button onClick={() => handleIncrement()}>next day</button>
       </div>
+      <button onClick={() => handleDecrement()}>previous day</button>
+      <button onClick={() => handleIncrement()}>next day</button>
     </div>
   );
 }

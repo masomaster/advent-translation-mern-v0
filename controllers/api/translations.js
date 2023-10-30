@@ -4,6 +4,7 @@ module.exports = {
   create,
   update,
   getDayTranslations,
+  getOfficialTranslations,
 };
 
 async function create(req, res) {
@@ -45,6 +46,26 @@ async function getDayTranslations(req, res) {
       user: req.user._id,
     });
     res.json(dayTranslations);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
+async function getOfficialTranslations(req, res) {
+  const parabibleBASE_URL =
+    "https://dev.parabible.com/api/v2/text?modules=NET&reference=";
+  const citation = req.params.id;
+  const citationWithoutSpaces = citation.replace(/\s/g, "");
+  const fetchURL = parabibleBASE_URL + citationWithoutSpaces;
+
+  try {
+    const officialTranslationJSON = await fetch(fetchURL);
+    if (!officialTranslationJSON.ok) {
+      throw new Error("Failed to fetch official translation");
+    }
+    const response = await officialTranslationJSON.json();
+    const officialTranslation = response.matchingText[0].text;
+    res.json(officialTranslation);
   } catch (err) {
     res.status(400).json(err);
   }
