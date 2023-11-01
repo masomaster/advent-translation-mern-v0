@@ -14,25 +14,20 @@ export default function TranslationPanel({
   const [officialTranslation, setOfficialTranslation] = useState("");
   const paraBibleLink = `https://parabible.com/${dayData.verse}`;
   const language = languageIsHebrew ? "hebrew" : "greek";
-  const OLTranslationKey = `${language}Translation`;
 
   // /* USE EFFECTS */
   // When day changes, either load any existing translations or clear the form
   useEffect(() => {
     try {
       translationsAPI.getDayTranslations(currentDay).then((translations) => {
-        if (translations) {
-          console.log("translations: ", translations);
-          setTranslation(translations[OLTranslationKey]);
-        } else {
-          setTranslation("");
-        }
+        if (translations[language]) setTranslation(translations[language]);
+        else setTranslation("");
         setOfficialTranslation("");
       });
     } catch (err) {
       console.log("Error in useEffect: ", err);
     }
-  }, [OLTranslationKey, currentDay, languageIsHebrew]);
+  }, [language, currentDay, languageIsHebrew]);
 
   /* HANDLE FUNCTIONS */
   // Get official translations of Hebrew (this is definitely something that could be made DRY-er)
@@ -56,12 +51,13 @@ export default function TranslationPanel({
     evt.preventDefault();
     try {
       const dayTranslation = {
-        [OLTranslationKey]: translation,
+        [language]: translation,
         day: currentDay,
         user: user._id,
       };
       const results = await translationsAPI.createTranslations(dayTranslation);
-      setTranslation(results[OLTranslationKey]);
+      if (results[language]) setTranslation(results[language]);
+      else setTranslation("");
     } catch (err) {
       console.log("Error in handleSubmit: ", err);
     }
@@ -72,9 +68,6 @@ export default function TranslationPanel({
     try {
       await handleSubmit(evt);
       setLanguageIsHebrew(true);
-      console.log(
-        "form submitted and language set back to hebrew in handleMoveBackToHebrew"
-      );
     } catch (err) {
       console.log("Error in handleMoveBackToHebrew: ", err);
     }

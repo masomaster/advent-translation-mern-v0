@@ -7,8 +7,8 @@ const translationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
-    greekTranslation: String,
-    hebrewTranslation: String,
+    greek: String,
+    hebrew: String,
     day: {
       type: Number,
       required: true,
