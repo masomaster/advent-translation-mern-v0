@@ -1,8 +1,10 @@
+import { useState } from "react";
 import * as days from "../../days.json";
 import TranslationPanel from "../TranslationPanel/TranslationPanel";
 
 export default function DayTranslations({ user, currentDay, setCurrentDay }) {
-  const dayData = days[currentDay];
+  const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
+  const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT;
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
 
   function handleIncrement() {
@@ -18,14 +20,9 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
       <TranslationPanel
         user={user}
         currentDay={currentDay}
-        language="hebrew"
-        dayData={dayData.OT}
-      />
-      <TranslationPanel
-        user={user}
-        currentDay={currentDay}
-        language="greek"
-        dayData={dayData.NT}
+        languageIsHebrew={languageIsHebrew}
+        setLanguageIsHebrew={setLanguageIsHebrew}
+        dayData={dayData}
       />
       <button onClick={() => handleDecrement()}>previous day</button>
       <button onClick={() => handleIncrement()}>next day</button>

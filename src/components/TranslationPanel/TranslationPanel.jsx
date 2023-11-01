@@ -6,38 +6,49 @@ export default function TranslationPanel({
   dayData,
   user,
   currentDay,
-  language,
+  languageIsHebrew,
+  setLanguageIsHebrew,
 }) {
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
   const [officialTranslation, setOfficialTranslation] = useState("");
   const paraBibleLink = `https://parabible.com/${dayData.verse}`;
+  const language = languageIsHebrew ? "hebrew" : "greek";
   const OLTranslationKey = `${language}Translation`;
 
   // /* USE EFFECTS */
   // When day changes, either load any existing translations or clear the form
   useEffect(() => {
-    translationsAPI.getDayTranslations(currentDay).then((translations) => {
-      if (translations) {
-        setTranslation(translations[OLTranslationKey]);
-      } else {
-        setTranslation("");
-      }
-      setOfficialTranslation("");
-    });
-  }, [OLTranslationKey, currentDay, language]);
+    try {
+      translationsAPI.getDayTranslations(currentDay).then((translations) => {
+        if (translations) {
+          console.log("translations: ", translations);
+          setTranslation(translations[OLTranslationKey]);
+        } else {
+          setTranslation("");
+        }
+        setOfficialTranslation("");
+      });
+    } catch (err) {
+      console.log("Error in useEffect: ", err);
+    }
+  }, [OLTranslationKey, currentDay, languageIsHebrew]);
 
   /* HANDLE FUNCTIONS */
   // Get official translations of Hebrew (this is definitely something that could be made DRY-er)
   async function handleShowOfficialTranslations() {
-    if (!dayData) return;
-    const officialTranslationResponse = await getOfficialTranslations(
-      dayData.verse
-    );
-    if (officialTranslationResponse) {
-      setOfficialTranslation(officialTranslationResponse);
-    } else {
-      setOfficialTranslation("");
+    try {
+      if (!dayData) return;
+      const officialTranslationResponse = await getOfficialTranslations(
+        dayData.verse
+      );
+      if (officialTranslationResponse) {
+        setOfficialTranslation(officialTranslationResponse);
+      } else {
+        setOfficialTranslation("");
+      }
+    } catch (err) {
+      console.log("Error in handleShowOfficialTranslations: ", err);
     }
   }
 
@@ -49,14 +60,33 @@ export default function TranslationPanel({
         day: currentDay,
         user: user._id,
       };
-      console.log(
-        "This may be a problem with the template literal: dayTranslation in handleSubmit: ",
-        dayTranslation
-      );
       const results = await translationsAPI.createTranslations(dayTranslation);
       setTranslation(results[OLTranslationKey]);
     } catch (err) {
       console.log("Error in handleSubmit: ", err);
+    }
+  }
+
+  async function handleMoveBackToHebrew(evt) {
+    evt.preventDefault();
+    try {
+      await handleSubmit(evt);
+      setLanguageIsHebrew(true);
+      console.log(
+        "form submitted and language set back to hebrew in handleMoveBackToHebrew"
+      );
+    } catch (err) {
+      console.log("Error in handleMoveBackToHebrew: ", err);
+    }
+  }
+
+  async function handleMoveToGreek(evt) {
+    evt.preventDefault();
+    try {
+      await handleSubmit(evt);
+      setLanguageIsHebrew(false);
+    } catch (err) {
+      console.log("Error in handleMoveToGreek: ", err);
     }
   }
 
@@ -86,6 +116,18 @@ export default function TranslationPanel({
           <a href={paraBibleLink} target="_blank" rel="noreferrer">
             Click here for language help at parabible.
           </a>
+        </div>
+        <div className="progressButtons">
+          {languageIsHebrew ? (
+            <button onClick={handleMoveToGreek}>Save and Go to Greek!</button>
+          ) : (
+            <div>
+              <button onClick={handleMoveBackToHebrew}>
+                Save and Go Back to Hebrew
+              </button>
+              <button onSubmit={handleSubmit}>Done for the Day!</button>
+            </div>
+          )}
         </div>
       </div>
     </div>
