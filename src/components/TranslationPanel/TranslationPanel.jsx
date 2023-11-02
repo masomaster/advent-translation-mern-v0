@@ -12,7 +12,12 @@ export default function TranslationPanel({
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
   const [officialTranslation, setOfficialTranslation] = useState("");
-  const paraBibleLink = `https://parabible.com/${dayData.verse}`;
+  const englishCitation = dayData.citation.english;
+  let hebrewCitation = "";
+  if (languageIsHebrew) hebrewCitation = dayData.citation.hebrew;
+  const paraBibleLink = `https://parabible.com/${
+    languageIsHebrew ? hebrewCitation : englishCitation
+  }`;
   const language = languageIsHebrew ? "hebrew" : "greek";
 
   // /* USE EFFECTS */
@@ -35,7 +40,7 @@ export default function TranslationPanel({
     try {
       if (!dayData) return;
       const officialTranslationResponse = await getOfficialTranslations(
-        dayData.verse
+        englishCitation
       );
       if (officialTranslationResponse) {
         setOfficialTranslation(officialTranslationResponse);
@@ -85,14 +90,15 @@ export default function TranslationPanel({
 
   return (
     <div>
-      <p>{dayData.verse}</p>
-      <p>{dayData.text}</p>
+      <p className={language}>{dayData.text}</p>
+      <p className={`${language}-verse`}>
+        {languageIsHebrew ? `${hebrewCitation} [Heb.]` : englishCitation}
+      </p>
+      <p>{officialTranslation} </p>
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label htmlFor="translation">Your translation:</label>
-          <input
-            type="textarea"
-            id="translation"
+          <textarea
             name="translation"
             value={translation}
             onChange={(e) => setTranslation(e.target.value)}
@@ -101,23 +107,20 @@ export default function TranslationPanel({
         </form>
         <div className="officialTranslation">
           <button onClick={() => handleShowOfficialTranslations()}>
-            Show official translations
+            Show NET translation
           </button>
-          <p>{officialTranslation} </p>
         </div>
         <div className="paraBibleLink">
           <a href={paraBibleLink} target="_blank" rel="noreferrer">
-            Click here for language help at parabible.
+            <button>Get language help at parabible</button>
           </a>
         </div>
         <div className="progressButtons">
           {languageIsHebrew ? (
-            <button onClick={handleMoveToGreek}>Save and Go to Greek!</button>
+            <button onClick={handleMoveToGreek}>On to Greek</button>
           ) : (
             <div>
-              <button onClick={handleMoveBackToHebrew}>
-                Save and Go Back to Hebrew
-              </button>
+              <button onClick={handleMoveBackToHebrew}>Back to Hebrew</button>
               <button onSubmit={handleSubmit}>Done for the Day!</button>
             </div>
           )}

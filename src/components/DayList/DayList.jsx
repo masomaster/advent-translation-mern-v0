@@ -1,12 +1,6 @@
 import * as days from "../../days.json";
 
 export default function DayList({ setCurrentDay }) {
-  const dayListEntryStyle = {
-    backgroundColor: "lightblue",
-    fontSize: "16px",
-    margin: "10px",
-  };
-
   // Render a span for each day in days.json up to the current day of the month in December
   const numberOfKeys = Object.keys(days).length;
   // TODO: not entirely sure if this is right. do I need to add or subtract 1 from the maxDays?
@@ -16,11 +10,10 @@ export default function DayList({ setCurrentDay }) {
     dayList.push(
       <span
         className="dayListEntry"
-        style={dayListEntryStyle}
         onClick={() => setCurrentDay(i + 1)}
         key={i}
       >
-        Day {i + 1}
+        Dec {i + 1}
       </span>
     );
   }

@@ -8,11 +8,17 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
 
   function handleIncrement() {
-    if (currentDay < numOfDays) setCurrentDay(currentDay + 1);
+    if (currentDay < numOfDays) {
+      setCurrentDay(currentDay + 1);
+      setLanguageIsHebrew(true);
+    }
   }
 
   function handleDecrement() {
-    if (currentDay > 1) setCurrentDay(currentDay - 1);
+    if (currentDay > 1) {
+      setCurrentDay(currentDay - 1);
+      setLanguageIsHebrew(true);
+    }
   }
 
   return (
