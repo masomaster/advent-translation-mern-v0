@@ -2,17 +2,13 @@ import { useState } from "react";
 import DayList from "../../components/DayList/DayList";
 import DayTranslations from "../../components/DayTranslations/DayTranslations";
 
-export default function Home({ user }) {
-  const [currentDay, setCurrentDay] = useState(user.latestDay || 1);
-
-  // const [currentDay, setCurrentDay] = useState(Math.min(user.latestDay || 1, new Date().getDate()));
-
+export default function Home({ user, currentDay, setCurrentDay }) {
   return (
     <div>
-      <DayList setCurrentDay={setCurrentDay} />
+      {/* <DayList setCurrentDay={setCurrentDay} /> */}
       <div>
-        <h1>Welcome to Advent Translation, {user.firstName}!</h1>
-        <h3>You are on Day {currentDay}.</h3>
+        <h3>Advent Translation</h3>
+        <h4>Day {currentDay}</h4>
       </div>
       <DayTranslations
         user={user}

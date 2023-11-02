@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Eczar&family=Frank+Ruhl+Libre&display=swap");
+
+body {
+  margin: 40px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+h3 {
+  margin: 0;
+}
+textarea {
+  height: 150px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form > button {
+  display: block;
+}
+button:hover {
+  color: white;
+  background-color: #1eaedb;
+}
+.paraBibleLink a {
+  color: #555;
+  text-decoration: none;
+}
+
+.hebrew {
+  /* font-family: "David Libre", Helvetica, Arial, Times, serif; */
+  font-family: "Frank Ruhl Libre", Helvetica, Arial, Times, serif;
+  font-size: xx-large;
+  text-align: right;
+}
+.greek {
+  font-family: "Eczar", Helvetica, Arial, Times, serif;
+  font-size: xx-large;
+}
+.hebrew-verse {
+  text-align: right;
+}
