@@ -21,11 +21,11 @@ export default function DayList({ setCurrentDay, setChecked }) {
 
   for (let i = 0; i < maxDays && i < numberOfKeys - 1; i++) {
     dayList.push(
-      <li className="dayListEntry" onClick={() => handleClick(i + 1)} key={i}>
+      <li className="day-list-entry" onClick={() => handleClick(i + 1)} key={i}>
         Dec {i + 1}
       </li>
     );
   }
 
-  return <div className="DayList">{dayList}</div>;
+  return <div className="day-list">{dayList}</div>;
 }

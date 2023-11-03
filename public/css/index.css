@@ -166,9 +166,11 @@ button:hover {
 .navbar .menu-items li a {
   font-size: 20px;
 }
+
 #logout {
   margin-bottom: 30px;
 }
+
 #welcome {
   border-bottom: 1px solid black;
   width: 40%;
@@ -182,6 +184,13 @@ button:hover {
   right: 0;
   font-size: 1.2rem;
   color: #0e2431;
+}
+
+/* See skeleton.css for media queries for hamburger menu */
+
+.navbar .menu-items .day-list .day-list-entry:hover {
+  font-weight: bolder;
+  cursor: pointer;
 }
 
 .nav-container input[type="checkbox"]:checked ~ .menu-items {
@@ -204,7 +213,7 @@ button:hover {
   background-color: white;
   position: absolute;
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }
