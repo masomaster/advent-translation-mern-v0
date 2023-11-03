@@ -32,7 +32,6 @@ button:hover {
 }
 
 .hebrew {
-  /* font-family: "David Libre", Helvetica, Arial, Times, serif; */
   font-family: "Frank Ruhl Libre", Helvetica, Arial, Times, serif;
   font-size: xx-large;
   text-align: right;
@@ -61,7 +60,6 @@ button:hover {
 
 .navbar {
   width: 100%;
-  /* box-shadow: 0 1px 4px rgb(146 161 176 / 15%); */
 }
 
 .nav-container {
@@ -104,8 +102,6 @@ button:hover {
   display: block;
   height: 32px;
   width: 32px;
-  /* top: 20px; */
-  /* left: 20px; */
   z-index: 5;
   opacity: 0;
   cursor: pointer;
@@ -116,8 +112,6 @@ button:hover {
   height: 26px;
   width: 32px;
   position: absolute;
-  /* top: 17px; */
-  /* left: 20px; */
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -159,10 +153,8 @@ button:hover {
   display: flex;
   flex-direction: column;
   margin-left: -40px;
-  /* padding-left: 50px; */
   transition: transform 0.5s ease-in-out;
   text-align: center;
-  /* background-color: white; */
 }
 
 .navbar .menu-items li {
@@ -213,12 +205,15 @@ button:hover {
   position: absolute;
   height: 100vh;
   width: 100vh;
-  z-index: 1;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }
 
-.visible {
+.opaque {
   opacity: 1;
   transition: opacity 0.4s ease-in-out;
+}
+
+.behind {
+  z-index: -1;
 }

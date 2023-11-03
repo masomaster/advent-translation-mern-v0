@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
 import DayList from "../DayList/DayList";
 
 export default function NavBar({ user, setUser, setCurrentDay }) {
   const [checked, setChecked] = useState(false);
+  const [behind, setBehind] = useState("behind");
+
+  // UseEffect to handle setting behind to true 0.5sec after"checked" state is set to false
+  useEffect(() => {
+    if (!checked) {
+      setTimeout(() => {
+        setBehind("behind");
+      }, 500);
+    } else {
+      setBehind("");
+    }
+  }, [checked]);
+
   function handleLogOut() {
     userService.logOut();
     setUser(null);
@@ -12,7 +25,7 @@ export default function NavBar({ user, setUser, setCurrentDay }) {
 
   return (
     <nav className="navbar">
-      <div className={`overlay ${checked ? "visible" : ""}`}></div>
+      <div className={`overlay ${checked ? "opaque" : ""} ${behind}`}></div>
       <div className="ham-container nav-container">
         <input
           className="checkbox"
