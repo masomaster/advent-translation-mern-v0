@@ -12,13 +12,14 @@ export default function NavBar({ user, setUser, setCurrentDay }) {
 
   return (
     <nav className="navbar">
+      <div className={`overlay ${checked ? "visible" : ""}`}></div>
       <div className="ham-container nav-container">
         <input
           className="checkbox"
           type="checkbox"
           checked={checked}
           onChange={() => {}} // Dummy onChange handler to avoid React warning
-          onClick={() => setChecked(true)}
+          onClick={() => setChecked(!checked)}
         />
         <div className="hamburger-lines" onClick={() => setChecked(false)}>
           <span className="line line1"></span>
