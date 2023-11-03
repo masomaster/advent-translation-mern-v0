@@ -25,7 +25,8 @@ export default function TranslationPanel({
   useEffect(() => {
     try {
       translationsAPI.getDayTranslations(currentDay).then((translations) => {
-        if (translations[language]) setTranslation(translations[language]);
+        if (translations && translations[language])
+          setTranslation(translations[language]);
         else setTranslation("");
         setOfficialTranslation("");
       });

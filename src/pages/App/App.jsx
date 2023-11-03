@@ -7,7 +7,7 @@ import Home from "../Home/Home";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-  const [currentDay, setCurrentDay] = useState(user.latestDay || 1);
+  const [currentDay, setCurrentDay] = useState(user?.latestDay || 1);
   // Uncomment the following when it's time to deploy
   // const [currentDay, setCurrentDay] = useState(Math.min(user.latestDay || 1, new Date().getDate()));
 

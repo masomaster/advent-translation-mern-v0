@@ -21,6 +21,12 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
     }
   }
 
+  function dontExceedDecDate() {
+    return new Date().getMonth() === 11
+      ? currentDay <= new Date().getDate()
+      : 100;
+  }
+
   return (
     <div>
       <TranslationPanel
@@ -30,8 +36,12 @@ export default function DayTranslations({ user, currentDay, setCurrentDay }) {
         setLanguageIsHebrew={setLanguageIsHebrew}
         dayData={dayData}
       />
-      <button onClick={() => handleDecrement()}>previous day</button>
-      <button onClick={() => handleIncrement()}>next day</button>
+      {currentDay !== 1 && (
+        <button onClick={() => handleDecrement()}>previous day</button>
+      )}
+      {currentDay !== numOfDays && currentDay <= dontExceedDecDate() && (
+        <button onClick={() => handleIncrement()}>next day</button>
+      )}
     </div>
   );
 }
