@@ -91,11 +91,13 @@ export default function TranslationPanel({
 
   return (
     <div>
-      <p className={language}>{dayData.text}</p>
-      <p className={`${language}-verse`}>
-        {languageIsHebrew ? `${hebrewCitation} [Heb.]` : englishCitation}
-      </p>
-      <p>{officialTranslation} </p>
+      <div className="verse-text">
+        <p className={language}>{dayData.text}</p>
+        <p className={`${language}-verse`}>
+          {languageIsHebrew ? `${hebrewCitation} [Heb.]` : englishCitation}
+        </p>
+        <p>{officialTranslation} </p>
+      </div>
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label htmlFor="translation">Your translation:</label>
