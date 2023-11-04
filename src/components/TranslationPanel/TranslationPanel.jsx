@@ -69,23 +69,13 @@ export default function TranslationPanel({
     }
   }
 
-  async function handleMoveBackToHebrew(evt) {
+  async function handleLanguageSwitch(evt) {
     evt.preventDefault();
     try {
       await handleSubmit(evt);
-      setLanguageIsHebrew(true);
+      setLanguageIsHebrew(!languageIsHebrew);
     } catch (err) {
-      console.log("Error in handleMoveBackToHebrew: ", err);
-    }
-  }
-
-  async function handleMoveToGreek(evt) {
-    evt.preventDefault();
-    try {
-      await handleSubmit(evt);
-      setLanguageIsHebrew(false);
-    } catch (err) {
-      console.log("Error in handleMoveToGreek: ", err);
+      console.log("Error in handleLanguageSwitch: ", err);
     }
   }
 
@@ -120,10 +110,10 @@ export default function TranslationPanel({
         </div>
         <div className="progressButtons">
           {languageIsHebrew ? (
-            <button onClick={handleMoveToGreek}>On to Greek</button>
+            <button onClick={handleLanguageSwitch}>On to Greek</button>
           ) : (
             <div>
-              <button onClick={handleMoveBackToHebrew}>Back to Hebrew</button>
+              <button onClick={handleLanguageSwitch}>Back to Hebrew</button>
               <button onSubmit={handleSubmit}>Done for the Day!</button>
             </div>
           )}
