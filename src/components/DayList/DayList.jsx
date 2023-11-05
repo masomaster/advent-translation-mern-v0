@@ -1,11 +1,16 @@
+import ReactHover, { Trigger, Hover } from "react-hover";
 import * as days from "../../days.json";
 
 export default function DayList({ setCurrentDay, setChecked, isProduction }) {
-  // Render a span for each day in days.json up to the current day of the month in December
-  const numberOfKeys = Object.keys(days).length;
+  const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
+  const hoverOptions = {
+    followCursor: false,
+    shiftX: 20,
+    shiftY: 0,
+  };
 
   // If in Production, only show days up to the current day of the month
-  // Commented-out code checks makes this only work if it is December
+  // Commented-out code makes this only work if it is December
   const maxDays = isProduction
     ? // ? new Date().getMonth() === 11
       new Date().getDate()
@@ -25,11 +30,26 @@ export default function DayList({ setCurrentDay, setChecked, isProduction }) {
     await changeChecked();
   }
 
-  for (let i = 0; i < maxDays && i < numberOfKeys - 1; i++) {
+  for (let i = 0; i < maxDays && i < numOfDays; i++) {
     dayList.push(
-      <li className="day-list-entry" onClick={() => handleClick(i + 1)} key={i}>
-        Dec {i + 1}
-      </li>
+      <ReactHover options={hoverOptions} key={`react-hover-${i}`}>
+        <Trigger type="trigger" key={`trigger-${i}`}>
+          <li
+            className="day-list-entry"
+            onClick={() => handleClick(i + 1)}
+            key={`day-${i}`}
+          >
+            Dec {i + 1}
+          </li>
+        </Trigger>
+        <Hover type="hover" key={`hover-${i}`}>
+          <div className="hover-text" key={`hover-div-${i}`}>
+            {days[i + 1].OT.citation.hebrew}
+            <br />
+            {days[i + 1].NT.citation.english}
+          </div>
+        </Hover>
+      </ReactHover>
     );
   }
 

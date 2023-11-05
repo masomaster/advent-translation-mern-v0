@@ -8,11 +8,15 @@ import Home from "../Home/Home";
 export default function App() {
   const [user, setUser] = useState(getUser());
   const [currentDay, setCurrentDay] = useState(user?.latestDay || 1);
-  const isProduction = false;
+  // Toggle first boolean below to manually set it to production mode
+  const isProduction =
+    false || (new Date().getMonth === 1 && new Date().getFullYear === 2023)
+      ? true
+      : false;
 
   useEffect(() => {
     if (isProduction) {
-      // I don't think I want it to check if it's actually December. I want to just be able to turn Prod on or off.
+      // I don't want it to check if it's actually December right now. I want to be able to test as if it were December. See below.
       const currentDate = new Date().getDate();
       setCurrentDay(currentDate);
       // If it's December, set current day to today's date

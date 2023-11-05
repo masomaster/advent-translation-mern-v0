@@ -76,14 +76,28 @@ button:hover {
 }
 
 .nav-container {
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   align-items: center;
   height: 62px;
+  display: block;
+  position: relative;
+  height: 40px;
+  margin-bottom: 20px;
+  z-index: 1;
 }
 
 .navbar .menu-items {
   display: flex;
+  padding-top: 80px;
+  /* box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5); */
+  height: 100vh;
+  width: 100%; /* changed from 100vw */
+  transform: translate(-150%);
+  flex-direction: column;
+  margin-left: -40px;
+  transition: transform 0.5s ease-in-out;
+  text-align: center;
 }
 
 .navbar .nav-container li {
@@ -100,14 +114,6 @@ button:hover {
 
 .navbar .nav-container a:hover {
   font-weight: bolder;
-}
-
-.nav-container {
-  display: block;
-  position: relative;
-  height: 40px;
-  margin-bottom: 20px;
-  z-index: 1;
 }
 
 .nav-container .checkbox {
@@ -155,19 +161,6 @@ button:hover {
 
 .navbar h3 {
   line-height: 0.7;
-}
-
-.navbar .menu-items {
-  padding-top: 80px;
-  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-  height: 100vh;
-  width: 100vw;
-  transform: translate(-150%);
-  display: flex;
-  flex-direction: column;
-  margin-left: -40px;
-  transition: transform 0.5s ease-in-out;
-  text-align: center;
 }
 
 .navbar .menu-items li {
@@ -222,6 +215,10 @@ button:hover {
   transform: rotate(-45deg);
 }
 
+.hover-text {
+  display: none;
+}
+
 .overlay {
   background-color: white;
   position: absolute;
@@ -251,5 +248,11 @@ button:hover {
 
   .greek {
     font-size: xx-large;
+  }
+
+  .hover-text {
+    display: inline;
+    background-color: white;
+    padding: 10px;
   }
 }

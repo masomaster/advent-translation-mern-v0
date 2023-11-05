@@ -28,11 +28,16 @@ export default function Home({
     }
   }
 
-  // If it's December, don't allow the user to go past the current day
+  // If it's December 2023, don't allow the user to go past the current day.
+  // If after that date, or not in production, allow user to see any day.
   function dontExceedDecDate() {
-    return isProduction || new Date().getMonth() === 11
-      ? new Date().getDate()
-      : 100;
+    let maxDate = 100;
+    if (isProduction) {
+      if (new Date().getMonth() === 11 && new Date().getFullYear === 2023) {
+        maxDate = new Date().getDate();
+      }
+    }
+    return maxDate;
   }
 
   return (
