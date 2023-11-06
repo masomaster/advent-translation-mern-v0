@@ -1,19 +1,17 @@
-# Advent Translation - Version 0
+# Advent Translation 2023
+
+[Go to deployed version](https://www.adventtranslation.com/)
 
 ## About
 
-This is a project, modeled after [Advent of Code](https://adventofcode.com/), providing 25 days of translation practice from Hebrew and Greek verses in the Bible. It is currently in the planning and prototyping stages.
-
-As version 0, this is for prototyping and proof-of-concept.
-
-It last iteration of this project was too ambitious. I tried to learn and use too many new technologies all at once. So I'm prototyping here with tried and true tools and can develop with newer tech in later versions.
+This is a project, modeled after [Advent of Code](https://adventofcode.com/), providing 25 days of translation practice from Hebrew and Greek verses in the Bible for the Christmas/Advent 2023 season.
 
 ## Technologies
 
-Familiar to me includes:
+Kept it simple to get it off the ground asap:
 
 - React
-- MongoDB (or maybe not, if I go with PocketBase)
+- MongoDB
 - Node.js
 - Express
 
