@@ -41,6 +41,13 @@ export default function NavBar({ user, setUser, setCurrentDay, isProduction }) {
         </div>
         <div className="logo">
           <h3>Advent Translation</h3>
+          <a
+            href="https://forms.gle/QrqjwfmWVVzmYpPd7"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Feedback
+          </a>
         </div>
         <div className="menu-items">
           <li id="welcome" onClick={() => setChecked(false)}>
