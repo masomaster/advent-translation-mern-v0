@@ -4,21 +4,30 @@ import { useState } from "react";
 
 export default function AuthPage({ setUser }) {
   const [login, setLogin] = useState(true);
-
+  const splash = (
+    <div>
+      <h1>Advent Translation</h1>
+      <div className="tagline">
+        One Hebrew and one Greek verse for you to translate each day of Advent
+      </div>
+    </div>
+  );
   function handleToggle() {
     setLogin(!login);
   }
 
   return (
-    <main>
+    <main className="auth-page">
       {login ? (
         <>
-          <h1>Log In</h1>
+          {splash}
+          <h3>Log In</h3>
           <LoginForm setUser={setUser} handleToggle={handleToggle} />
         </>
       ) : (
         <>
-          <h1>Sign Up</h1>
+          {splash}
+          <h3>Sign Up</h3>
           <SignUpForm setUser={setUser} handleToggle={handleToggle} />
         </>
       )}

@@ -50,10 +50,10 @@ export default function LoginForm({ setUser, handleToggle }) {
           <button type="submit">LOG IN</button>
         </form>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
       <Link to="" onClick={handleToggle}>
         Sign up!
       </Link>
+      <p className="error-message">&nbsp;{error}</p>
     </div>
   );
 }

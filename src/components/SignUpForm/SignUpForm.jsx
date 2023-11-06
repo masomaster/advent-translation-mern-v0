@@ -94,10 +94,10 @@ export default function SignUpForm({ setUser, handleToggle }) {
           </button>
         </form>
       </div>
-      <p className="error-message">&nbsp;{signUpForm.error}</p>
       <Link to="" onClick={handleToggle}>
         Log In!
       </Link>
+      <p className="error-message">&nbsp;{signUpForm.error}</p>
     </div>
   );
 }
