@@ -6,18 +6,18 @@
       "use": "@now/node"
     },
     {
-      "src": "/build",
+      "src": "build",
       "use": "@now/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/server.js"
+      "dest": "server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/build/$1"
+      "dest": "build/$1"
     }
   ]
 }
