@@ -543,7 +543,8 @@ there.
   .navbar .menu-items .day-list {
     margin-top: 20px;
     margin-bottom: 20px;
-    display: flex;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
