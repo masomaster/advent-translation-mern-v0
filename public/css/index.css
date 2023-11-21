@@ -7,6 +7,7 @@ body {
 
 .auth-page h3 {
   margin-top: 80px;
+  color: #73a580;
 }
 
 nav {
@@ -16,6 +17,10 @@ nav {
 
 h3 {
   margin: 0;
+}
+
+h4 {
+  color: #73a580;
 }
 
 .verse-text {
@@ -38,7 +43,12 @@ form > button {
 
 button:hover {
   color: white;
-  background-color: #1eaedb;
+  background-color: #73a580;
+}
+
+.form-container #save {
+  color: white;
+  background-color: #912f40;
 }
 
 .paraBibleLink a {
@@ -109,7 +119,7 @@ button:hover {
 
 .navbar .nav-container a {
   text-decoration: none;
-  color: #0e2431;
+  color: #555;
   font-weight: 500;
   font-size: 1.2rem;
   padding: 0.7rem;
@@ -164,6 +174,7 @@ button:hover {
 
 .navbar h3 {
   line-height: 0.7;
+  color: #912f40;
 }
 
 .navbar .menu-items li {
@@ -185,6 +196,7 @@ button:hover {
   width: 40%;
   margin: 0 auto;
   margin-bottom: 20px;
+  color: #912f40;
 }
 
 .logo {
@@ -214,6 +226,7 @@ button:hover {
 .navbar .menu-items .day-list .day-list-entry:hover {
   font-weight: bolder;
   cursor: pointer;
+  color: #912f40;
 }
 
 .nav-container input[type="checkbox"]:checked ~ .menu-items {
@@ -280,7 +293,7 @@ button:hover {
 
   .hover-box {
     background-color: white;
-    border: solid 1px green;
+    border: solid 1px #73a580;
     margin: 7px;
     display: flex;
   }
