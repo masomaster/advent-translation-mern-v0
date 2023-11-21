@@ -278,9 +278,29 @@ button:hover {
     font-size: xx-large;
   }
 
+  .hover-box {
+    background-color: white;
+    border: solid 1px green;
+    margin: 7px;
+    display: flex;
+  }
+
   .hover-text {
     display: inline;
-    background-color: white;
     padding: 10px;
+    text-align: center;
+  }
+
+  .navbar .menu-items .day-list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: grid;
+    /* flex-direction: grid; */
+    grid-template-columns: repeat(5, 1fr);
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    max-width: 750px;
+    /* margin: 0 auto; */
   }
 }
