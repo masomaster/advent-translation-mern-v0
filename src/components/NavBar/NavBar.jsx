@@ -46,7 +46,7 @@ export default function NavBar({ user, setUser, setCurrentDay, isProduction }) {
             target="_blank"
             rel="noreferrer"
           >
-            Give Feedback
+            This is an early release. Give Feedback!
           </a>
         </div>
         <div className="menu-items">
