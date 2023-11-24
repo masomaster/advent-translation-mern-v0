@@ -1,7 +1,7 @@
 import ReactHover, { Trigger, Hover } from "react-hover";
 import * as days from "../../days.json";
 
-export default function DayList({ setCurrentDay, setChecked, isProduction }) {
+export default function DayList({ setCurrentDay, setChecked, maxDate }) {
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
   const hoverOptions = {
     followCursor: false,
@@ -9,13 +9,6 @@ export default function DayList({ setCurrentDay, setChecked, isProduction }) {
     shiftY: 0,
   };
 
-  // If in Production, only show days up to the current day of the month
-  // Commented-out code makes this only work if it is December
-  const maxDays = isProduction
-    ? // ? new Date().getMonth() === 11
-      new Date().getDate()
-    : 100;
-  // : 100;
   const dayList = [];
 
   // This isn't pretty, but it avoids state issues with checked being false before currentDay is set
@@ -30,7 +23,7 @@ export default function DayList({ setCurrentDay, setChecked, isProduction }) {
     await changeChecked();
   }
 
-  for (let i = 0; i < maxDays && i < numOfDays; i++) {
+  for (let i = 0; i < maxDate && i < numOfDays; i++) {
     dayList.push(
       <ReactHover options={hoverOptions} key={`react-hover-${i}`}>
         <Trigger type="trigger" key={`trigger-${i}`}>
