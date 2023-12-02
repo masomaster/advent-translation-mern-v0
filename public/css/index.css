@@ -284,6 +284,16 @@ button:hover {
   height: 0px;
 }
 
+.done {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.done h3 {
+  color: #73a580;
+  margin-bottom: 30px;
+}
+
 .footer {
   text-align: center;
   margin-top: 20px;
